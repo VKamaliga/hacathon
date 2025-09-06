@@ -13,6 +13,7 @@ const SellItem: React.FC<SellItemProps> = ({ onBack }) => {
     category: 'Laptop' as keyof typeof CATEGORY_WEIGHTS,
     description: '',
     weight: CATEGORY_WEIGHTS.Laptop,
+    quantity: 1,
   });
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>('');
@@ -41,7 +42,30 @@ const SellItem: React.FC<SellItemProps> = ({ onBack }) => {
 
     setLoading(true);
     
-    // Simulate upload delay
+    // Save product to localStorage
+    const savedProducts = localStorage.getItem('products');
+    const products = savedProducts ? JSON.parse(savedProducts) : [];
+    
+    const newProduct = {
+      id: Date.now().toString(),
+      name: formData.name,
+      category: formData.category,
+      description: formData.description,
+      image: imagePreview,
+      weight: formData.weight,
+      quantity: formData.quantity,
+      ecoImpact: {
+        eWasteSaved: formData.weight,
+        co2Saved: formData.weight * 6,
+      },
+      sellerId: '1', // Current user ID
+      sellerName: 'Current User', // Would be actual user name
+      timestamp: new Date(),
+    };
+    
+    products.push(newProduct);
+    localStorage.setItem('products', JSON.stringify(products));
+    
     setTimeout(() => {
       setSuccess(true);
       setLoading(false);
@@ -50,17 +74,17 @@ const SellItem: React.FC<SellItemProps> = ({ onBack }) => {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-100 to-white flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center p-4">
         <div className="max-w-md w-full text-center">
-          <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 border border-gray-200">
-            <div className="w-20 h-20 bg-gradient-to-br from-gray-800 to-black rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 border border-green-200">
+            <div className="w-20 h-20 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="w-10 h-10 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Product Listed Successfully!</h2>
-            <p className="text-gray-600 mb-8">Your item is now available in the marketplace</p>
+            <h2 className="text-2xl font-bold text-green-800 mb-4">Product Listed Successfully!</h2>
+            <p className="text-green-700 mb-8">Your item is now available in the marketplace</p>
             <button
               onClick={onBack}
-              className="w-full bg-gradient-to-r from-gray-800 to-black text-white py-3 px-6 rounded-2xl font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200"
+              className="w-full bg-gradient-to-r from-green-600 to-emerald-700 text-white py-3 px-6 rounded-2xl font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200"
             >
               Back to Homepage
             </button>

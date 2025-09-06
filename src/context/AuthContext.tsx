@@ -54,18 +54,35 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setAuthError(null);
     setLoading(true);
     
-    // Simple validation
+    // Validation
     if (!email || !password) {
-      setAuthError('Please enter both email and password');
+      setAuthError('Please enter both email and password.');
       setLoading(false);
       return;
     }
 
-    // Simulate login delay
+    // Check if user exists
+    const savedUsers = localStorage.getItem('userCredentials');
+    const users: UserCredentials[] = savedUsers ? JSON.parse(savedUsers) : [];
+    const existingUser = users.find(u => u.email === email);
+    
+    if (!existingUser) {
+      setAuthError('Email not found. New users must sign up first.');
+      setLoading(false);
+      return;
+    }
+    
+    if (existingUser.password !== password) {
+      setAuthError('Incorrect password. Please try again.');
+      setLoading(false);
+      return;
+    }
+
+    // Simulate login delay for successful login
     setTimeout(() => {
       const newUser: User = {
         id: '1',
-        name: email.split('@')[0], // Use email prefix as name
+        name: existingUser.name,
         email: email,
         location: '',
       };
@@ -82,12 +99,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setAuthError(null);
     setLoading(true);
     
-    // Simple validation
+    // Validation
     if (!email || !password || !name) {
-      setAuthError('Please fill in all fields');
+      setAuthError('Please fill in all fields.');
       setLoading(false);
       return;
     }
+
+    // Check if user already exists
+    const savedUsers = localStorage.getItem('userCredentials');
+    const users: UserCredentials[] = savedUsers ? JSON.parse(savedUsers) : [];
+    const existingUser = users.find(u => u.email === email);
+    
+    if (existingUser) {
+      setAuthError('Email already exists. Please sign in instead.');
+      setLoading(false);
+      return;
+    }
+    
+    // Save new user credentials
+    users.push({ email, password, name });
+    localStorage.setItem('userCredentials', JSON.stringify(users));
 
     // Simulate signup delay
     setTimeout(() => {

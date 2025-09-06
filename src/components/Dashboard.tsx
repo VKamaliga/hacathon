@@ -24,22 +24,22 @@ const Dashboard: React.FC = () => {
       label: 'E-waste Diverted',
       value: formatWeight(eWasteSaved),
       icon: Leaf,
-      color: 'from-gray-700 to-gray-900',
-      bgColor: 'bg-gray-50',
+      color: 'from-green-600 to-emerald-700',
+      bgColor: 'bg-green-50',
     },
     {
       label: 'CO₂ Equivalent Saved',
       value: formatCO2(co2Saved),
       icon: Zap,
-      color: 'from-gray-600 to-gray-800',
-      bgColor: 'bg-gray-100',
+      color: 'from-green-500 to-emerald-600',
+      bgColor: 'bg-green-100',
     },
     {
       label: 'Orders Placed',
       value: orderCount.toString(),
       icon: Award,
-      color: 'from-gray-800 to-black',
-      bgColor: 'bg-gray-50',
+      color: 'from-green-700 to-emerald-800',
+      bgColor: 'bg-green-50',
     },
   ];
 
@@ -48,15 +48,15 @@ const Dashboard: React.FC = () => {
       {stats.map((stat, index) => {
         const Icon = stat.icon;
         return (
-          <div key={index} className={`${stat.bgColor} rounded-2xl p-6 border border-gray-200`}>
+          <div key={index} className={`${stat.bgColor} rounded-2xl p-6 border border-green-200`}>
             <div className="flex items-center justify-between mb-4">
               <div className={`w-12 h-12 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center`}>
                 <Icon className="w-6 h-6 text-white" />
               </div>
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-800 mb-1">{stat.value}</p>
-              <p className="text-sm text-gray-600">{stat.label}</p>
+              <p className="text-2xl font-bold text-green-800 mb-1">{stat.value}</p>
+              <p className="text-sm text-green-700">{stat.label}</p>
             </div>
           </div>
         );

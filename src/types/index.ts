@@ -12,6 +12,7 @@ export interface Product {
   description: string;
   image: string;
   weight: number; // in grams
+  quantity: number;
   ecoImpact: {
     eWasteSaved: number; // in grams
     co2Saved: number; // in grams
