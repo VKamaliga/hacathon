@@ -75,6 +75,38 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
       // Clothes
       {
         id: '4',
+        name: 'Sony 55" 4K Smart TV',
+        category: 'Home Appliance',
+        description: '55-inch 4K Ultra HD Smart TV with HDR support. Excellent picture quality with Android TV platform. Barely used, perfect condition.',
+        image: 'https://images.pexels.com/photos/1444416/pexels-photo-1444416.jpeg?auto=compress&cs=tinysrgb&w=800',
+        weight: 18000,
+        quantity: 2,
+        ecoImpact: {
+          eWasteSaved: 18000,
+          co2Saved: 108000,
+        },
+        sellerId: '22',
+        sellerName: 'Electronics Store',
+        timestamp: new Date(),
+      },
+      {
+        id: '21',
+        name: 'LG 500L Double Door Refrigerator',
+        category: 'Home Appliance',
+        description: 'Energy-efficient double door refrigerator with inverter compressor. 500L capacity, perfect for families. Excellent cooling performance.',
+        image: 'https://images.pexels.com/photos/2343468/pexels-photo-2343468.jpeg?auto=compress&cs=tinysrgb&w=800',
+        weight: 65000,
+        quantity: 1,
+        ecoImpact: {
+          eWasteSaved: 65000,
+          co2Saved: 390000,
+        },
+        sellerId: '23',
+        sellerName: 'Home Appliances Co.',
+        timestamp: new Date(),
+      },
+      {
+        id: '22',
         name: 'Organic Cotton T-Shirt (Men)',
         category: 'Clothes',
         description: 'Premium organic cotton t-shirt in navy blue. Size L. Sustainably made with eco-friendly dyes.',
@@ -175,7 +207,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Handcrafted Glass Vase Collection',
         category: 'Furniture',
         description: 'Set of 3 elegant glass vases made from recycled glass. Various sizes for different flower arrangements.',
-        image: 'https://images.pexels.com/photos/1029896/pexels-photo-1029896.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: 'glass vase.jpg',
         weight: 2500,
         quantity: 14,
         ecoImpact: {
@@ -191,7 +223,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Full-Length Floor Mirror',
         category: 'Furniture',
         description: 'Elegant full-length mirror with sustainable wooden frame. Perfect for bedrooms or dressing areas.',
-        image: 'https://images.pexels.com/photos/6969831/pexels-photo-6969831.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: 'mirror.jpeg',
         weight: 8000,
         quantity: 6,
         ecoImpact: {
@@ -208,7 +240,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'The Silent Patient - Psychological Thriller',
         category: 'Books',
         description: 'Bestselling psychological thriller by Alex Michaelides. Excellent condition, barely used.',
-        image: 'https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: 'silent pat.jpg',
         weight: 300,
         quantity: 25,
         ecoImpact: {
@@ -224,7 +256,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Educated - Memoir',
         category: 'Books',
         description: 'Powerful memoir by Tara Westover. Winner of multiple awards. Like new condition.',
-        image: 'https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: 'educated.jpg',
         weight: 350,
         quantity: 18,
         ecoImpact: {
@@ -240,7 +272,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Twisted Hate - Romance Thriller',
         category: 'Books',
         description: 'Intense enemies-to-lovers romance thriller by Ana Huang. Part of the Twisted series. Excellent condition.',
-        image: 'https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: 'twistedhate.jpg',
         weight: 320,
         quantity: 31,
         ecoImpact: {
@@ -256,7 +288,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Calculus: Early Transcendentals - Academic',
         category: 'Books',
         description: 'Comprehensive calculus textbook by James Stewart. 8th Edition. Excellent for engineering students.',
-        image: 'https://images.pexels.com/photos/256541/pexels-photo-256541.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: 'calculus.jpg',
         weight: 1200,
         quantity: 9,
         ecoImpact: {
@@ -272,7 +304,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Organic Chemistry - Academic Textbook',
         category: 'Books',
         description: 'Comprehensive organic chemistry textbook by Clayden et al. 2nd Edition. Perfect for chemistry majors.',
-        image: 'https://images.pexels.com/photos/256541/pexels-photo-256541.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: 'chem.jpg',
         weight: 1400,
         quantity: 5,
         ecoImpact: {
@@ -289,7 +321,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Stainless Steel Water Bottle - 750ml',
         category: 'Kitchen & Lifestyle',
         description: 'Double-walled insulated water bottle. Keeps drinks cold for 24hrs, hot for 12hrs. BPA-free.',
-        image: 'https://images.pexels.com/photos/3735747/pexels-photo-3735747.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: '/kitchen-and-lifestyle/waterbottle.jpeg',
         weight: 400,
         quantity: 42,
         ecoImpact: {
@@ -305,7 +337,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Organic Cotton Shopping Bags Set',
         category: 'Kitchen & Lifestyle',
         description: 'Set of 5 reusable shopping bags made from organic cotton. Various sizes. Machine washable.',
-        image: 'https://images.pexels.com/photos/3735747/pexels-photo-3735747.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: '/kitchen-and-lifestyle/bag.jpeg',
         weight: 200,
         quantity: 28,
         ecoImpact: {
