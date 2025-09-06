@@ -1,0 +1,118 @@
+import React from 'react';
+import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { Recycle, Leaf, Globe } from 'lucide-react';
+
+const Login: React.FC = () => {
+  const { signIn, signUp, loading, authError } = useAuth();
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    name: '',
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isSignUp) {
+      await signUp(formData.email, formData.password, formData.name);
+    } else {
+      await signIn(formData.email, formData.password);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black flex items-center justify-center p-4">
+      <div className="max-w-md w-full">
+        <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 text-center border border-gray-200">
+          <div className="flex justify-center mb-6">
+            <div className="relative">
+              <div className="w-20 h-20 bg-gradient-to-br from-gray-800 to-black rounded-2xl flex items-center justify-center">
+                <Recycle className="w-10 h-10 text-white" />
+              </div>
+              <div className="absolute -top-2 -right-2 w-6 h-6 bg-gray-600 rounded-full flex items-center justify-center">
+                <Leaf className="w-3 h-3 text-white" />
+              </div>
+            </div>
+          </div>
+          
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">EcoFinds</h1>
+          <p className="text-gray-600 mb-8">Sustainable Electronics Marketplace</p>
+          
+          {authError && (
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
+              <p className="text-red-700 text-sm">{authError}</p>
+            </div>
+          )}
+          
+          <div className="space-y-4 mb-8">
+            <div className="flex items-center justify-center space-x-2 text-gray-700">
+              <Globe className="w-4 h-4" />
+              <span className="text-sm">Reduce E-Waste Together</span>
+            </div>
+          </div>
+          
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {isSignUp && (
+              <div>
+                <input
+                  type="text"
+                  placeholder="Full Name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                  required
+                />
+              </div>
+            )}
+            
+            <div>
+              <input
+                type="email"
+                placeholder="Email Address"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                required
+              />
+            </div>
+            
+            <div>
+              <input
+                type="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                required
+              />
+            </div>
+            
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-gray-800 to-black text-white py-4 px-6 rounded-2xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? (isSignUp ? 'Creating Account...' : 'Signing In...') : (isSignUp ? 'Create Account' : 'Sign In')}
+            </button>
+          </form>
+          
+          <div className="mt-6">
+            <button
+              onClick={() => setIsSignUp(!isSignUp)}
+              className="text-gray-700 hover:text-gray-900 text-sm font-medium"
+            >
+              {isSignUp ? 'Already have an account? Sign In' : "Don't have an account? Sign Up"}
+            </button>
+          </div>
+          
+          <p className="text-xs text-gray-500 mt-6">
+            Join the movement to reduce electronic waste and build a sustainable future
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
