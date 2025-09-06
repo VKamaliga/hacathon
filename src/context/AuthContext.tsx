@@ -28,6 +28,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [authError, setAuthError] = useState<string | null>(null);
   const [orderCount, setOrderCount] = useState(0);
 
+  // Load order count for a specific email
+  const loadOrderCount = (email: string): number => {
+    const savedCounts = localStorage.getItem('userOrderCounts');
+    if (savedCounts) {
+      const counts = JSON.parse(savedCounts);
+      return counts[email] || 0;
+    }
+    return 0;
+  };
+
+  // Save order count for a specific email
+  const saveOrderCount = (email: string, count: number) => {
+    const savedCounts = localStorage.getItem('userOrderCounts');
+    const counts = savedCounts ? JSON.parse(savedCounts) : {};
+    counts[email] = count;
+    localStorage.setItem('userOrderCounts', JSON.stringify(counts));
+  };
+
   const signIn = async (email: string, password: string) => {
     setAuthError(null);
     setLoading(true);
@@ -47,7 +65,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         email: email,
         location: '',
       };
+      const userOrderCount = loadOrderCount(email);
       setUser(newUser);
+      setOrderCount(userOrderCount);
       setLoading(false);
     }, 500);
   };
@@ -71,18 +91,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         email: email,
         location: '',
       };
+      const userOrderCount = loadOrderCount(email);
       setUser(newUser);
+      setOrderCount(userOrderCount);
       setLoading(false);
     }, 500);
   };
 
   const signOut = async () => {
+    // Save current order count before signing out
+    if (user) {
+      saveOrderCount(user.email, orderCount);
+    }
     setUser(null);
-    setOrderCount(0); // Reset order count on logout
+    setOrderCount(0);
   };
 
   const incrementOrderCount = () => {
-    setOrderCount(prev => prev + 1);
+    setOrderCount(prev => {
+      const newCount = prev + 1;
+      // Save the updated count immediately
+      if (user) {
+        saveOrderCount(user.email, newCount);
+      }
+      return newCount;
+    });
   };
   const value = {
     user,
