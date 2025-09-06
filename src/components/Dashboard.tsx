@@ -21,7 +21,7 @@ const Dashboard: React.FC = () => {
 
   const stats = [
     {
-      label: 'Price',
+      label: 'Total Price',
       value: `₹${totalSpent.toLocaleString()}`,
       icon: IndianRupee,
       color: 'from-green-600 to-emerald-700',
