@@ -78,7 +78,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Sony 55" 4K Smart TV',
         category: 'Home Appliance',
         description: '55-inch 4K Ultra HD Smart TV with HDR support. Excellent picture quality with Android TV platform. Barely used, perfect condition.',
-        image: 'https://images.pexels.com/photos/1444416/pexels-photo-1444416.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: 'sony.jpeg',
         weight: 18000,
         quantity: 2,
         ecoImpact: {
@@ -94,7 +94,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'LG 500L Double Door Refrigerator',
         category: 'Home Appliance',
         description: 'Energy-efficient double door refrigerator with inverter compressor. 500L capacity, perfect for families. Excellent cooling performance.',
-        image: 'https://images.pexels.com/photos/2343468/pexels-photo-2343468.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: 'fridge.webp',
         weight: 65000,
         quantity: 1,
         ecoImpact: {
