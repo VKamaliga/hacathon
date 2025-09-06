@@ -237,9 +237,9 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
       },
       {
         id: '14',
-        name: 'The Seven Husbands of Evelyn Hugo - Romance',
+        name: 'Twisted Hate - Romance Thriller',
         category: 'Books',
-        description: 'Captivating romance novel by Taylor Jenkins Reid. Perfect for book clubs. Good condition.',
+        description: 'Intense enemies-to-lovers romance thriller by Ana Huang. Part of the Twisted series. Excellent condition.',
         image: 'https://images.pexels.com/photos/1029141/pexels-photo-1029141.jpeg?auto=compress&cs=tinysrgb&w=800',
         weight: 320,
         quantity: 31,
@@ -256,7 +256,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Calculus: Early Transcendentals - Academic',
         category: 'Books',
         description: 'Comprehensive calculus textbook by James Stewart. 8th Edition. Excellent for engineering students.',
-        image: 'https://images.pexels.com/photos/159866/books-book-pages-read-159866.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: 'https://images.pexels.com/photos/256541/pexels-photo-256541.jpeg?auto=compress&cs=tinysrgb&w=800',
         weight: 1200,
         quantity: 9,
         ecoImpact: {
@@ -272,7 +272,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Organic Chemistry - Academic Textbook',
         category: 'Books',
         description: 'Comprehensive organic chemistry textbook by Clayden et al. 2nd Edition. Perfect for chemistry majors.',
-        image: 'https://images.pexels.com/photos/159866/books-book-pages-read-159866.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: 'https://images.pexels.com/photos/256541/pexels-photo-256541.jpeg?auto=compress&cs=tinysrgb&w=800',
         weight: 1400,
         quantity: 5,
         ecoImpact: {
@@ -289,7 +289,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Stainless Steel Water Bottle - 750ml',
         category: 'Kitchen & Lifestyle',
         description: 'Double-walled insulated water bottle. Keeps drinks cold for 24hrs, hot for 12hrs. BPA-free.',
-        image: 'https://images.pexels.com/photos/1000084/pexels-photo-1000084.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: 'https://images.pexels.com/photos/416528/pexels-photo-416528.jpeg?auto=compress&cs=tinysrgb&w=800',
         weight: 400,
         quantity: 42,
         ecoImpact: {
@@ -305,7 +305,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Organic Cotton Shopping Bags Set',
         category: 'Kitchen & Lifestyle',
         description: 'Set of 5 reusable shopping bags made from organic cotton. Various sizes. Machine washable.',
-        image: 'https://images.pexels.com/photos/3735218/pexels-photo-3735218.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: 'https://images.pexels.com/photos/1005638/pexels-photo-1005638.jpeg?auto=compress&cs=tinysrgb&w=800',
         weight: 200,
         quantity: 28,
         ecoImpact: {
@@ -321,7 +321,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Bamboo Cutlery Set with Travel Case',
         category: 'Kitchen & Lifestyle',
         description: 'Complete cutlery set made from sustainable bamboo. Includes fork, knife, spoon, chopsticks, and straw.',
-        image: 'https://images.pexels.com/photos/4099354/pexels-photo-4099354.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: 'https://images.pexels.com/photos/6621374/pexels-photo-6621374.jpeg?auto=compress&cs=tinysrgb&w=800',
         weight: 150,
         quantity: 35,
         ecoImpact: {
@@ -338,7 +338,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Urban Commuter Bicycle - 21 Speed',
         category: 'Transport & Outdoor',
         description: 'Lightweight aluminum frame bicycle perfect for city commuting. 21-speed Shimano gears. Recently serviced.',
-        image: 'https://images.pexels.com/photos/100582/pexels-photo-100582.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&w=800',
         weight: 15000,
         quantity: 4,
         ecoImpact: {
@@ -354,7 +354,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Solar-Powered LED Camping Lantern',
         category: 'Transport & Outdoor',
         description: 'Rechargeable camping lantern with solar panel and USB charging. Waterproof design. 3 brightness levels.',
-        image: 'https://images.pexels.com/photos/1687845/pexels-photo-1687845.jpeg?auto=compress&cs=tinysrgb&w=800',
+        image: 'https://images.pexels.com/photos/2398220/pexels-photo-2398220.jpeg?auto=compress&cs=tinysrgb&w=800',
         weight: 500,
         quantity: 16,
         ecoImpact: {
