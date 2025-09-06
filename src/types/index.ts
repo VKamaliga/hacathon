@@ -8,7 +8,7 @@ export interface User {
 export interface Product {
   id: string;
   name: string;
-  category: 'Laptop' | 'Mobile' | 'Accessories' | 'Home Appliance';
+  category: 'Laptop' | 'Mobile' | 'Accessories' | 'Home Appliance' | 'Clothes' | 'Furniture' | 'Books' | 'Kitchen & Lifestyle' | 'Transport & Outdoor';
   description: string;
   image: string;
   weight: number; // in grams
@@ -36,4 +36,9 @@ export const CATEGORY_WEIGHTS = {
   'Mobile': 200, // 200g average
   'Accessories': 100, // 100g average
   'Home Appliance': 5000, // 5kg average
+  'Clothes': 300, // 300g average
+  'Furniture': 8000, // 8kg average
+  'Books': 400, // 400g average
+  'Kitchen & Lifestyle': 250, // 250g average
+  'Transport & Outdoor': 12000, // 12kg average
 };
