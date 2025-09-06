@@ -68,7 +68,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
   ];
 
   const handleOrder = async (product: Product) => {
-    incrementOrderCount();
+    incrementOrderCount(product.ecoImpact.eWasteSaved, product.ecoImpact.co2Saved);
     
     // Show CO2 celebration popup
     setCo2Celebration({

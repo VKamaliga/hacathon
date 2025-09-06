@@ -3,20 +3,33 @@ import { useAuth } from '../context/AuthContext';
 import { Leaf, Zap, Award } from 'lucide-react';
 
 const Dashboard: React.FC = () => {
-  const { orderCount } = useAuth();
+  const { orderCount, eWasteSaved, co2Saved } = useAuth();
 
-  // Mock data for demo
+  const formatWeight = (grams: number): string => {
+    if (grams >= 1000) {
+      return `${(grams / 1000).toFixed(1)}kg`;
+    }
+    return `${grams}g`;
+  };
+
+  const formatCO2 = (grams: number): string => {
+    if (grams >= 1000) {
+      return `${(grams / 1000).toFixed(1)}kg CO₂`;
+    }
+    return `${grams}g CO₂`;
+  };
+
   const stats = [
     {
       label: 'E-waste Diverted',
-      value: '2.5kg',
+      value: formatWeight(eWasteSaved),
       icon: Leaf,
       color: 'from-gray-700 to-gray-900',
       bgColor: 'bg-gray-50',
     },
     {
       label: 'CO₂ Equivalent Saved',
-      value: '15kg CO₂',
+      value: formatCO2(co2Saved),
       icon: Zap,
       color: 'from-gray-600 to-gray-800',
       bgColor: 'bg-gray-100',

@@ -6,10 +6,12 @@ interface AuthContextType {
   loading: boolean;
   authError: string | null;
   orderCount: number;
+  eWasteSaved: number;
+  co2Saved: number;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, name: string) => Promise<void>;
   signOut: () => Promise<void>;
-  incrementOrderCount: () => void;
+  incrementOrderCount: (eWaste: number, co2: number) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -27,23 +29,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
   const [orderCount, setOrderCount] = useState(0);
+  const [eWasteSaved, setEWasteSaved] = useState(0);
+  const [co2Saved, setCo2Saved] = useState(0);
 
-  // Load order count for a specific email
-  const loadOrderCount = (email: string): number => {
-    const savedCounts = localStorage.getItem('userOrderCounts');
-    if (savedCounts) {
-      const counts = JSON.parse(savedCounts);
-      return counts[email] || 0;
+  // Load user stats for a specific email
+  const loadUserStats = (email: string): { orderCount: number; eWasteSaved: number; co2Saved: number } => {
+    const savedStats = localStorage.getItem('userStats');
+    if (savedStats) {
+      const stats = JSON.parse(savedStats);
+      return stats[email] || { orderCount: 0, eWasteSaved: 0, co2Saved: 0 };
     }
-    return 0;
+    return { orderCount: 0, eWasteSaved: 0, co2Saved: 0 };
   };
 
-  // Save order count for a specific email
-  const saveOrderCount = (email: string, count: number) => {
-    const savedCounts = localStorage.getItem('userOrderCounts');
-    const counts = savedCounts ? JSON.parse(savedCounts) : {};
-    counts[email] = count;
-    localStorage.setItem('userOrderCounts', JSON.stringify(counts));
+  // Save user stats for a specific email
+  const saveUserStats = (email: string, orderCount: number, eWasteSaved: number, co2Saved: number) => {
+    const savedStats = localStorage.getItem('userStats');
+    const stats = savedStats ? JSON.parse(savedStats) : {};
+    stats[email] = { orderCount, eWasteSaved, co2Saved };
+    localStorage.setItem('userStats', JSON.stringify(stats));
   };
 
   const signIn = async (email: string, password: string) => {
@@ -122,6 +126,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     loading,
     authError,
     orderCount,
+    eWasteSaved,
+    co2Saved,
     signIn,
     signUp,
     signOut,
