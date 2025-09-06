@@ -69,9 +69,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         email: email,
         location: '',
       };
-      const userOrderCount = loadOrderCount(email);
+      const userStats = loadUserStats(email);
       setUser(newUser);
-      setOrderCount(userOrderCount);
+      setOrderCount(userStats.orderCount);
+      setEWasteSaved(userStats.eWasteSaved);
+      setCo2Saved(userStats.co2Saved);
       setLoading(false);
     }, 500);
   };
@@ -95,9 +97,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         email: email,
         location: '',
       };
-      const userOrderCount = loadOrderCount(email);
+      const userStats = loadUserStats(email);
       setUser(newUser);
-      setOrderCount(userOrderCount);
+      setOrderCount(userStats.orderCount);
+      setEWasteSaved(userStats.eWasteSaved);
+      setCo2Saved(userStats.co2Saved);
       setLoading(false);
     }, 500);
   };
@@ -105,18 +109,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signOut = async () => {
     // Save current order count before signing out
     if (user) {
-      saveOrderCount(user.email, orderCount);
+      saveUserStats(user.email, orderCount, eWasteSaved, co2Saved);
     }
     setUser(null);
     setOrderCount(0);
+    setEWasteSaved(0);
+    setCo2Saved(0);
   };
 
-  const incrementOrderCount = () => {
+  const incrementOrderCount = (eWaste: number, co2: number) => {
     setOrderCount(prev => {
       const newCount = prev + 1;
       // Save the updated count immediately
       if (user) {
-        saveOrderCount(user.email, newCount);
+        const newEWaste = eWasteSaved + eWaste;
+        const newCo2 = co2Saved + co2;
+        setEWasteSaved(newEWaste);
+        setCo2Saved(newCo2);
+        saveUserStats(user.email, newCount, newEWaste, newCo2);
       }
       return newCount;
     });
