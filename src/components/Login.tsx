@@ -48,7 +48,7 @@ const Login: React.FC = () => {
           <div className="space-y-4 mb-8">
             <div className="flex items-center justify-center space-x-2 text-green-700">
               <Globe className="w-4 h-4" />
-              <span className="text-sm">Reduce E-Waste Together</span>
+              <span className="text-sm">EcoFinds, eco-friendly you.</span>
             </div>
             
             {isSignUp && (
