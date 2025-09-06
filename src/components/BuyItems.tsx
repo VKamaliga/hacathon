@@ -139,7 +139,14 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
               By choosing {co2Celebration.productName}, you're helping reduce electronic waste and carbon emissions!
             </p>
             
-            <div className="mt-6 flex justify-center space-x-2">
+            <button
+              onClick={() => setCo2Celebration({ show: false, co2Saved: 0, productName: '', message: '' })}
+              className="mt-6 bg-gradient-to-r from-gray-800 to-black text-white py-2 px-6 rounded-xl font-medium hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200"
+            >
+              Go Back
+            </button>
+            
+            <div className="mt-4 flex justify-center space-x-2">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce"></div>
               <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
               <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
