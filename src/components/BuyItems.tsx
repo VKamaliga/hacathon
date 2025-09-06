@@ -479,7 +479,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
     }
     
     incrementOrderCount(product.ecoImpact.eWasteSaved, product.ecoImpact.co2Saved);
-    incrementOrderCount(product.ecoImpact.eWasteSaved, product.ecoImpact.co2Saved, product.price);
+    incrementOrderCount(product.ecoImpact.eWasteSaved, product.ecoImpact.co2Saved, product.price, product.category);
     
     // Show CO2 celebration popup
     setCo2Celebration({

@@ -1,17 +1,27 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
-import { ShoppingBag, Package, LogOut, User } from 'lucide-react';
+import { ShoppingBag, Package, LogOut, User, Trophy } from 'lucide-react';
 import Dashboard from './Dashboard';
+import BadgeSystem from './BadgeSystem';
+import BadgeNotification from './BadgeNotification';
+import { getBadgeDefinitions } from '../utils/badgeUtils';
 
 interface HomepageProps {
   onNavigate: (page: string) => void;
 }
 
 const Homepage: React.FC<HomepageProps> = ({ onNavigate }) => {
-  const { user, signOut } = useAuth();
+  const { user, signOut, orderCount, co2Saved, eWasteItemsSaved, newBadgeEarned, clearNewBadge } = useAuth();
+  
+  const badges = getBadgeDefinitions(orderCount, co2Saved, eWasteItemsSaved);
+  const newBadge = newBadgeEarned ? badges.find(b => b.id === newBadgeEarned) : null;
+  const earnedBadgesCount = badges.filter(b => b.earned).length;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 p-4">
+      {/* Badge Notification */}
+      <BadgeNotification badge={newBadge} onClose={clearNewBadge} />
+      
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
@@ -21,7 +31,15 @@ const Homepage: React.FC<HomepageProps> = ({ onNavigate }) => {
             </div>
             <div>
               <h1 className="text-2xl font-bold text-green-800">EcoFinds</h1>
-              <p className="text-sm text-green-700">Welcome back, {user?.name}</p>
+              <div className="flex items-center space-x-2">
+                <p className="text-sm text-green-700">Welcome back, {user?.name}</p>
+                {earnedBadgesCount > 0 && (
+                  <div className="flex items-center space-x-1 bg-yellow-100 px-2 py-1 rounded-full">
+                    <Trophy className="w-3 h-3 text-yellow-600" />
+                    <span className="text-xs font-semibold text-yellow-700">{earnedBadgesCount}</span>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
           
@@ -42,6 +60,9 @@ const Homepage: React.FC<HomepageProps> = ({ onNavigate }) => {
 
         {/* Dashboard */}
         <Dashboard />
+
+        {/* Badge System */}
+        <BadgeSystem badges={badges} />
 
         {/* Main Actions */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

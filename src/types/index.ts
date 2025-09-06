@@ -3,6 +3,11 @@ export interface User {
   name: string;
   email: string;
   location: string;
+  badges: {
+    greenStarter: boolean;
+    ecoSaver: boolean;
+    wasteWarrior: boolean;
+  };
 }
 
 export interface Product {
@@ -23,6 +28,22 @@ export interface Product {
   timestamp: any;
 }
 
+export interface Badge {
+  id: string;
+  name: string;
+  icon: string;
+  description: string;
+  requirement: string;
+  earned: boolean;
+  progress?: number;
+  maxProgress?: number;
+}
+
+export interface UserCredentials {
+  email: string;
+  password: string;
+  name: string;
+}
 export interface Order {
   id: string;
   productId: string;
@@ -44,6 +65,15 @@ export const CATEGORY_WEIGHTS = {
   'Transport & Outdoor': 12000, // 12kg average
 };
 
+// Electronics categories for e-waste tracking
+export const ELECTRONICS_CATEGORIES = ['Laptop', 'Mobile', 'Accessories', 'Home Appliance'];
+
+// Badge requirements
+export const BADGE_REQUIREMENTS = {
+  greenStarter: { orders: 1 },
+  ecoSaver: { co2Saved: 50000 }, // 50kg in grams
+  wasteWarrior: { eWasteItems: 10 }, // 10 electronic items
+};
 export const CATEGORY_PRICE_RANGES = {
   'Laptop': { min: 10000, max: 60000 },
   'Mobile': { min: 5000, max: 40000 },

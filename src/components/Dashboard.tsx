@@ -1,9 +1,9 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Leaf, Zap, Award, IndianRupee } from 'lucide-react';
+import { Leaf, Zap, Award, IndianRupee, Recycle } from 'lucide-react';
 
 const Dashboard: React.FC = () => {
-  const { orderCount, eWasteSaved, co2Saved, totalSpent } = useAuth();
+  const { orderCount, eWasteSaved, co2Saved, totalSpent, eWasteItemsSaved } = useAuth();
 
   const formatWeight = (grams: number): string => {
     if (grams >= 1000) {
@@ -45,6 +45,14 @@ const Dashboard: React.FC = () => {
       labelColor: 'text-white',
     },
     {
+      label: 'Electronic Items Saved',
+      value: eWasteItemsSaved.toString(),
+      icon: Recycle,
+      color: 'from-green-500 to-emerald-600',
+      bgColor: 'bg-gradient-to-br from-green-600 to-emerald-700',
+      labelColor: 'text-white',
+    },
+    {
       label: 'Orders Placed',
       value: orderCount.toString(),
       icon: Award,
@@ -55,7 +63,7 @@ const Dashboard: React.FC = () => {
   ];
 
   return (
-    <div className="grid grid-cols-4 gap-4 mb-8">
+    <div className="grid grid-cols-5 gap-4 mb-8">
       {stats.map((stat, index) => {
         const Icon = stat.icon;
         return (
