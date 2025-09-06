@@ -45,14 +45,6 @@ const Dashboard: React.FC = () => {
       labelColor: 'text-white',
     },
     {
-      label: 'Electronic Items Saved',
-      value: eWasteItemsSaved.toString(),
-      icon: Recycle,
-      color: 'from-green-500 to-emerald-600',
-      bgColor: 'bg-gradient-to-br from-green-600 to-emerald-700',
-      labelColor: 'text-white',
-    },
-    {
       label: 'Orders Placed',
       value: orderCount.toString(),
       icon: Award,
