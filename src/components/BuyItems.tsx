@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Product } from '../types';
-import { formatWeight, formatCO2 } from '../utils/calculations';
+import { formatWeight, formatCO2, getCO2Equivalent } from '../utils/calculations';
 import { ArrowLeft, User, Leaf, Zap, CheckCircle, Sparkles } from 'lucide-react';
 
 interface BuyItemsProps {
@@ -106,6 +106,12 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
               {formatCO2(co2Celebration.co2Saved)} saved!
             </h2>
             <p className="text-lg text-green-600 font-semibold mb-4">Hurray! 🎉</p>
+            <div className="bg-green-50 rounded-2xl p-4 mb-4 border border-green-200">
+              <p className="text-sm text-green-700 font-medium mb-1">That's equivalent to:</p>
+              <p className="text-green-800 font-semibold">
+                {getCO2Equivalent(co2Celebration.co2Saved)}
+              </p>
+            </div>
             <p className="text-gray-600 text-sm">
               By choosing {co2Celebration.productName}, you're helping reduce electronic waste and carbon emissions!
             </p>
