@@ -432,9 +432,5 @@ const SoldOutProductCard: React.FC<{ product: Product }> = ({ product }) => {
     </div>
   );
 };
-      </div>
-    </div>
-  );
-};
 
 export default BuyItems;
