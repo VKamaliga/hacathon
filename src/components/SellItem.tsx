@@ -95,7 +95,7 @@ const SellItem: React.FC<SellItemProps> = ({ onBack }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-white p-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-green-100 p-4">
       <div className="max-w-2xl mx-auto">
         <div className="flex items-center mb-8">
           <button
@@ -107,7 +107,8 @@ const SellItem: React.FC<SellItemProps> = ({ onBack }) => {
           <h1 className="text-3xl font-bold text-gray-800">Sell an Item</h1>
         </div>
 
-        <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 border border-gray-200">
+        <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl p-8 border border-green-300/50">
+        <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl p-8 border border-green-300/50">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Category Selection */}
             <div>

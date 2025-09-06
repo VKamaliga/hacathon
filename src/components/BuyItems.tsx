@@ -181,7 +181,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-white p-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-green-100 p-4">
       {/* CO2 Celebration Popup */}
       {co2Celebration.show && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
@@ -267,11 +267,19 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
 
         {/* Available Products */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold text-green-800 mb-6">Available Products</h2>
+          <div className="flex items-center mb-6">
+            <div className="w-8 h-8 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center mr-3">
+              <Package className="w-4 h-4 text-white" />
+            </div>
+            <h2 className="text-2xl font-bold text-green-800">Available Products</h2>
+          </div>
           {filteredProducts.length === 0 ? (
             <div className="text-center py-12">
-              <Package className="w-16 h-16 text-green-300 mx-auto mb-4" />
-              <p className="text-green-600 text-lg">No products available in this category</p>
+              <div className="w-20 h-20 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Package className="w-10 h-10 text-green-400" />
+              </div>
+              <p className="text-green-700 text-lg font-medium">No products available in this category</p>
+              <p className="text-green-600 text-sm mt-2">Check back later for new eco-friendly items!</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -285,7 +293,12 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         {/* Sold Out Products */}
         {filteredSoldOutProducts.length > 0 && (
           <div>
-            <h2 className="text-2xl font-bold text-red-600 mb-6">Sold Out Products</h2>
+            <div className="flex items-center mb-6">
+              <div className="w-8 h-8 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mr-3">
+                <Package className="w-4 h-4 text-white" />
+              </div>
+              <h2 className="text-2xl font-bold text-red-600">Sold Out Products</h2>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredSoldOutProducts.map((product) => (
                 <SoldOutProductCard key={product.id} product={product} />
@@ -301,7 +314,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
 // Product Card Component
 const ProductCard: React.FC<{ product: Product; onOrder: (product: Product) => void }> = ({ product, onOrder }) => {
   return (
-    <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-lg border border-green-200 overflow-hidden hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
+    <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-xl border border-green-300/50 overflow-hidden hover:shadow-2xl hover:border-green-400/70 transform hover:-translate-y-2 transition-all duration-300">
       <div className="aspect-w-16 aspect-h-9">
         <img 
           src={product.image} 
