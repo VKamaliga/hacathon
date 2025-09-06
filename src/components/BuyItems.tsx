@@ -389,7 +389,18 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
   const availableProducts = products.filter(product => product.quantity > 0);
   const soldOutProducts = products.filter(product => product.quantity === 0);
 
-  const categories = ['All', 'Laptop', 'Mobile', 'Accessories', 'Home Appliance'];
+  const categories = [
+    'All', 
+    'Laptop', 
+    'Mobile', 
+    'Accessories', 
+    'Home Appliance',
+    'Clothes',
+    'Furniture', 
+    'Books',
+    'Kitchen & Lifestyle',
+    'Transport & Outdoor'
+  ];
   
   const filteredProducts = selectedCategory === 'All' 
     ? availableProducts 
