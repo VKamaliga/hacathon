@@ -1,9 +1,9 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Leaf, Zap, Award } from 'lucide-react';
+import { Leaf, Zap, Award, IndianRupee } from 'lucide-react';
 
 const Dashboard: React.FC = () => {
-  const { orderCount, eWasteSaved, co2Saved } = useAuth();
+  const { orderCount, eWasteSaved, co2Saved, totalSpent } = useAuth();
 
   const formatWeight = (grams: number): string => {
     if (grams >= 1000) {
@@ -21,25 +21,32 @@ const Dashboard: React.FC = () => {
 
   const stats = [
     {
+      label: 'Total Investment',
+      value: `₹${totalSpent.toLocaleString()}`,
+      icon: IndianRupee,
+      color: 'from-green-600 to-emerald-700',
+      bgColor: 'bg-green-50',
+    },
+    {
       label: 'E-waste Diverted',
       value: formatWeight(eWasteSaved),
       icon: Leaf,
-      color: 'from-green-600 to-emerald-700',
-      bgColor: 'bg-green-50',
+      color: 'from-green-500 to-emerald-600',
+      bgColor: 'bg-green-100',
     },
     {
       label: 'CO₂ Equivalent Saved',
       value: formatCO2(co2Saved),
       icon: Zap,
-      color: 'from-green-500 to-emerald-600',
-      bgColor: 'bg-green-100',
+      color: 'from-green-400 to-emerald-500',
+      bgColor: 'bg-green-50',
     },
     {
       label: 'Orders Placed',
       value: orderCount.toString(),
       icon: Award,
-      color: 'from-green-700 to-emerald-800',
-      bgColor: 'bg-green-50',
+      color: 'from-green-600 to-emerald-700',
+      bgColor: 'bg-green-100',
     },
   ];
 

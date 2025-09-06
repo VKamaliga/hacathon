@@ -8,10 +8,11 @@ interface AuthContextType {
   orderCount: number;
   eWasteSaved: number;
   co2Saved: number;
+  totalSpent: number;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, name: string) => Promise<void>;
   signOut: () => Promise<void>;
-  incrementOrderCount: (eWaste: number, co2: number) => void;
+  incrementOrderCount: (eWaste: number, co2: number, price: number) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -31,22 +32,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [orderCount, setOrderCount] = useState(0);
   const [eWasteSaved, setEWasteSaved] = useState(0);
   const [co2Saved, setCo2Saved] = useState(0);
+  const [totalSpent, setTotalSpent] = useState(0);
 
   // Load user stats for a specific email
-  const loadUserStats = (email: string): { orderCount: number; eWasteSaved: number; co2Saved: number } => {
+  const loadUserStats = (email: string): { orderCount: number; eWasteSaved: number; co2Saved: number; totalSpent: number } => {
     const savedStats = localStorage.getItem('userStats');
     if (savedStats) {
       const stats = JSON.parse(savedStats);
-      return stats[email] || { orderCount: 0, eWasteSaved: 0, co2Saved: 0 };
+      return stats[email] || { orderCount: 0, eWasteSaved: 0, co2Saved: 0, totalSpent: 0 };
     }
-    return { orderCount: 0, eWasteSaved: 0, co2Saved: 0 };
+    return { orderCount: 0, eWasteSaved: 0, co2Saved: 0, totalSpent: 0 };
   };
 
   // Save user stats for a specific email
-  const saveUserStats = (email: string, orderCount: number, eWasteSaved: number, co2Saved: number) => {
+  const saveUserStats = (email: string, orderCount: number, eWasteSaved: number, co2Saved: number, totalSpent: number) => {
     const savedStats = localStorage.getItem('userStats');
     const stats = savedStats ? JSON.parse(savedStats) : {};
-    stats[email] = { orderCount, eWasteSaved, co2Saved };
+    stats[email] = { orderCount, eWasteSaved, co2Saved, totalSpent };
     localStorage.setItem('userStats', JSON.stringify(stats));
   };
 
@@ -91,6 +93,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setOrderCount(userStats.orderCount);
       setEWasteSaved(userStats.eWasteSaved);
       setCo2Saved(userStats.co2Saved);
+      setTotalSpent(userStats.totalSpent);
       setLoading(false);
     }, 500);
   };
@@ -134,6 +137,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setOrderCount(userStats.orderCount);
       setEWasteSaved(userStats.eWasteSaved);
       setCo2Saved(userStats.co2Saved);
+      setTotalSpent(userStats.totalSpent);
       setLoading(false);
     }, 500);
   };
@@ -141,24 +145,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signOut = async () => {
     // Save current order count before signing out
     if (user) {
-      saveUserStats(user.email, orderCount, eWasteSaved, co2Saved);
+      saveUserStats(user.email, orderCount, eWasteSaved, co2Saved, totalSpent);
     }
     setUser(null);
     setOrderCount(0);
     setEWasteSaved(0);
     setCo2Saved(0);
+    setTotalSpent(0);
   };
 
-  const incrementOrderCount = (eWaste: number, co2: number) => {
+  const incrementOrderCount = (eWaste: number, co2: number, price: number) => {
     setOrderCount(prev => {
       const newCount = prev + 1;
       // Save the updated count immediately
       if (user) {
         const newEWaste = eWasteSaved + eWaste;
         const newCo2 = co2Saved + co2;
+        const newTotalSpent = totalSpent + price;
         setEWasteSaved(newEWaste);
         setCo2Saved(newCo2);
-        saveUserStats(user.email, newCount, newEWaste, newCo2);
+        setTotalSpent(newTotalSpent);
+        saveUserStats(user.email, newCount, newEWaste, newCo2, newTotalSpent);
       }
       return newCount;
     });
@@ -170,6 +177,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     orderCount,
     eWasteSaved,
     co2Saved,
+    totalSpent,
     signIn,
     signUp,
     signOut,
