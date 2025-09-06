@@ -16,6 +16,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
     co2Saved: 0,
     productName: '',
     message: '',
+  });
 
   // Mock products data
   const products: Product[] = [
