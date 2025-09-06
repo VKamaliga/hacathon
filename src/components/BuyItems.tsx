@@ -79,10 +79,31 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
     // Hide celebration after 3 seconds
     setTimeout(() => {
       setCo2Celebration({ show: false, co2Saved: 0, productName: '' });
-    }, 3000);
+    }, 7000);
     
     setOrderSuccess(product.name);
     setTimeout(() => setOrderSuccess(null), 3000);
+  };
+
+  const getRandomCelebrationMessage = () => {
+    const messages = [
+      "Excellent choice!",
+      "Great decision!",
+      "Well done!",
+      "Fantastic!",
+      "Outstanding!",
+      "Wonderful choice!",
+      "Perfect selection!",
+      "Brilliant decision!",
+      "Superb choice!",
+      "Amazing impact!",
+      "Incredible contribution!",
+      "Remarkable choice!",
+      "Exceptional decision!",
+      "Impressive impact!",
+      "Magnificent choice!"
+    ];
+    return messages[Math.floor(Math.random() * messages.length)];
   };
 
   return (
@@ -90,7 +111,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
       {/* CO2 Celebration Popup */}
       {co2Celebration.show && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-3xl p-8 max-w-md w-full text-center transform animate-bounce shadow-2xl border border-gray-200">
+          <div className="bg-white rounded-3xl p-8 max-w-md w-full text-center transform shadow-2xl border border-gray-200 animate-[bounce_0.5s_ease-in-out_3]">
             <div className="flex justify-center mb-6">
               <div className="relative">
                 <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center animate-pulse">
@@ -105,7 +126,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
             <h2 className="text-2xl font-bold text-gray-800 mb-2">
               {formatCO2(co2Celebration.co2Saved)} saved!
             </h2>
-            <p className="text-lg text-green-600 font-semibold mb-4">Hurray! 🎉</p>
+            <p className="text-lg text-green-600 font-semibold mb-4">{getRandomCelebrationMessage()} 🎉</p>
             <div className="bg-green-50 rounded-2xl p-4 mb-4 border border-green-200">
               <p className="text-sm text-green-700 font-medium mb-1">That's equivalent to:</p>
               <p className="text-green-800 font-semibold">
