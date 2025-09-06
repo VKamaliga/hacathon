@@ -51,7 +51,7 @@ const Dashboard: React.FC = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div className="grid grid-cols-4 gap-4 mb-8">
       {stats.map((stat, index) => {
         const Icon = stat.icon;
         return (
@@ -63,7 +63,7 @@ const Dashboard: React.FC = () => {
             </div>
             <div>
               <p className="text-2xl font-bold text-green-800 mb-1">{stat.value}</p>
-              <p className="text-sm text-green-700">{stat.label}</p>
+              <p className="text-sm text-green-600 font-medium">{stat.label}</p>
             </div>
           </div>
         );
