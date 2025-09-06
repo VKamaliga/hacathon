@@ -119,7 +119,7 @@ const Login: React.FC = () => {
           </div>
           
           <p className="text-xs text-green-600 mt-6">
-            Join the movement to reduce electronic waste and build a sustainable future
+            Sustainability starts with simple actions: reuse, recycle, and rethink consumption.
           </p>
         </div>
       </div>
