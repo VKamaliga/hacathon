@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Product } from '../types';
+import { CATEGORY_PRICE_RANGES } from '../types';
 import { formatWeight, formatCO2, getCO2Equivalent } from '../utils/calculations';
-import { ArrowLeft, User, Leaf, Zap, CheckCircle, Sparkles, Filter, Package } from 'lucide-react';
+import { ArrowLeft, User, Leaf, Zap, CheckCircle, Sparkles, Filter, Package, IndianRupee, SlidersHorizontal } from 'lucide-react';
 
 interface BuyItemsProps {
   onBack: () => void;
@@ -12,6 +13,8 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
   const { incrementOrderCount } = useAuth();
   const [orderSuccess, setOrderSuccess] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({ min: 0, max: 100000 });
+  const [showPriceFilter, setShowPriceFilter] = useState(false);
   const [co2Celebration, setCo2Celebration] = useState<{ show: boolean; co2Saved: number; productName: string; message: string }>({
     show: false,
     co2Saved: 0,
@@ -29,6 +32,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'MacBook Pro 13-inch',
         category: 'Laptop',
         description: 'Excellent condition MacBook Pro with M1 chip, 8GB RAM, 256GB SSD. Perfect for work and creative tasks.',
+        price: 45000,
         image: 'https://images.pexels.com/photos/205421/pexels-photo-205421.jpeg?auto=compress&cs=tinysrgb&w=800',
         weight: 2500,
         quantity: 2,
@@ -45,6 +49,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'iPhone 12',
         category: 'Mobile',
         description: 'Great condition iPhone 12, 128GB storage, unlocked. Battery health at 85%. Includes original charger.',
+        price: 28000,
         image: 'https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&w=800',
         weight: 200,
         quantity: 1,
@@ -61,6 +66,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Wireless Headphones',
         category: 'Accessories',
         description: 'Sony WH-1000XM4 noise-canceling headphones. Excellent sound quality and battery life.',
+        price: 3500,
         image: 'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=800',
         weight: 100,
         quantity: 3,
@@ -78,6 +84,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Sony 55" 4K Smart TV',
         category: 'Home Appliance',
         description: '55-inch 4K Ultra HD Smart TV with HDR support. Excellent picture quality with Android TV platform. Barely used, perfect condition.',
+        price: 25000,
         image: 'sony.jpeg',
         weight: 18000,
         quantity: 2,
@@ -94,6 +101,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'LG 500L Double Door Refrigerator',
         category: 'Home Appliance',
         description: 'Energy-efficient double door refrigerator with inverter compressor. 500L capacity, perfect for families. Excellent cooling performance.',
+        price: 28000,
         image: 'fridge.webp',
         weight: 65000,
         quantity: 1,
@@ -110,6 +118,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Organic Cotton T-Shirt (Men)',
         category: 'Clothes',
         description: 'Premium organic cotton t-shirt in navy blue. Size L. Sustainably made with eco-friendly dyes.',
+        price: 800,
         image: 'https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg?auto=compress&cs=tinysrgb&w=800',
         weight: 200,
         quantity: 15,
@@ -126,6 +135,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Sustainable Denim Jacket (Women)',
         category: 'Clothes',
         description: 'Vintage-style denim jacket made from recycled cotton. Size M. Perfect for layering.',
+        price: 1500,
         image: 'https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=800',
         weight: 600,
         quantity: 8,
@@ -142,6 +152,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Hemp Blend Casual Dress (Women)',
         category: 'Clothes',
         description: 'Comfortable midi dress made from hemp-cotton blend. Size S. Breathable and eco-friendly.',
+        price: 1200,
         image: 'https://images.pexels.com/photos/985635/pexels-photo-985635.jpeg?auto=compress&cs=tinysrgb&w=800',
         weight: 350,
         quantity: 12,
@@ -158,6 +169,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Recycled Wool Sweater (Men)',
         category: 'Clothes',
         description: 'Cozy crew neck sweater made from 100% recycled wool. Size XL. Charcoal gray color.',
+        price: 1800,
         image: 'https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=800',
         weight: 450,
         quantity: 6,
@@ -175,6 +187,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Reclaimed Wood Bookshelf',
         category: 'Furniture',
         description: 'Beautiful 5-tier bookshelf made from reclaimed oak wood. Dimensions: 180cm H x 80cm W x 30cm D.',
+        price: 8500,
         image: 'https://images.pexels.com/photos/2177482/pexels-photo-2177482.jpeg?auto=compress&cs=tinysrgb&w=800',
         weight: 25000,
         quantity: 3,
@@ -191,6 +204,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Ergonomic Bamboo Office Chair',
         category: 'Furniture',
         description: 'Sustainable office chair with bamboo frame and organic cotton cushioning. Adjustable height.',
+        price: 6500,
         image: 'https://images.pexels.com/photos/1957477/pexels-photo-1957477.jpeg?auto=compress&cs=tinysrgb&w=800',
         weight: 12000,
         quantity: 7,
@@ -207,6 +221,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Handcrafted Glass Vase Collection',
         category: 'Furniture',
         description: 'Set of 3 elegant glass vases made from recycled glass. Various sizes for different flower arrangements.',
+        price: 2500,
         image: 'glass vase.jpg',
         weight: 2500,
         quantity: 14,
@@ -223,6 +238,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Full-Length Floor Mirror',
         category: 'Furniture',
         description: 'Elegant full-length mirror with sustainable wooden frame. Perfect for bedrooms or dressing areas.',
+        price: 4500,
         image: 'mirror.jpeg',
         weight: 8000,
         quantity: 6,
@@ -240,6 +256,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'The Silent Patient - Psychological Thriller',
         category: 'Books',
         description: 'Bestselling psychological thriller by Alex Michaelides. Excellent condition, barely used.',
+        price: 250,
         image: 'silent pat.jpg',
         weight: 300,
         quantity: 25,
@@ -256,6 +273,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Educated - Memoir',
         category: 'Books',
         description: 'Powerful memoir by Tara Westover. Winner of multiple awards. Like new condition.',
+        price: 300,
         image: 'educated.jpg',
         weight: 350,
         quantity: 18,
@@ -272,6 +290,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Twisted Hate - Romance Thriller',
         category: 'Books',
         description: 'Intense enemies-to-lovers romance thriller by Ana Huang. Part of the Twisted series. Excellent condition.',
+        price: 200,
         image: 'twistedhate.jpg',
         weight: 320,
         quantity: 31,
@@ -288,6 +307,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Calculus: Early Transcendentals - Academic',
         category: 'Books',
         description: 'Comprehensive calculus textbook by James Stewart. 8th Edition. Excellent for engineering students.',
+        price: 800,
         image: 'calculus.jpg',
         weight: 1200,
         quantity: 9,
@@ -304,6 +324,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Organic Chemistry - Academic Textbook',
         category: 'Books',
         description: 'Comprehensive organic chemistry textbook by Clayden et al. 2nd Edition. Perfect for chemistry majors.',
+        price: 900,
         image: 'chem.jpg',
         weight: 1400,
         quantity: 5,
@@ -321,6 +342,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Stainless Steel Water Bottle - 750ml',
         category: 'Kitchen & Lifestyle',
         description: 'Double-walled insulated water bottle. Keeps drinks cold for 24hrs, hot for 12hrs. BPA-free.',
+        price: 600,
         image: '/kitchen-and-lifestyle/waterbottle.jpeg',
         weight: 400,
         quantity: 42,
@@ -337,6 +359,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Organic Cotton Shopping Bags Set',
         category: 'Kitchen & Lifestyle',
         description: 'Set of 5 reusable shopping bags made from organic cotton. Various sizes. Machine washable.',
+        price: 400,
         image: '/kitchen-and-lifestyle/bag.jpeg',
         weight: 200,
         quantity: 28,
@@ -354,6 +377,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
         name: 'Urban Commuter Bicycle - 21 Speed',
         category: 'Transport & Outdoor',
         description: 'Lightweight aluminum frame bicycle perfect for city commuting. 21-speed Shimano gears. Recently serviced.',
+        price: 12000,
         image: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&w=800',
         weight: 15000,
         quantity: 4,
@@ -405,10 +429,19 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
   const filteredProducts = selectedCategory === 'All' 
     ? availableProducts 
     : availableProducts.filter(product => product.category === selectedCategory);
+  
+  // Apply price filter
+  const priceFilteredProducts = filteredProducts.filter(product => 
+    product.price >= priceRange.min && product.price <= priceRange.max
+  );
     
   const filteredSoldOutProducts = selectedCategory === 'All' 
     ? soldOutProducts 
-    : soldOutProducts.filter(product => product.category === selectedCategory);
+    : soldOutProducts.filter(product => 
+        product.category === selectedCategory && 
+        product.price >= priceRange.min && 
+        product.price <= priceRange.max
+      );
 
   const handleOrder = async (product: Product) => {
     // Update product quantity
@@ -570,6 +603,52 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
           ))}
         </div>
 
+        {/* Price Range Filter */}
+        <div className="mb-8">
+          <button
+            onClick={() => setShowPriceFilter(!showPriceFilter)}
+            className="flex items-center space-x-2 px-6 py-3 bg-white/95 border border-green-200 rounded-2xl font-semibold text-green-700 hover:bg-green-50 transition-all duration-200"
+          >
+            <SlidersHorizontal className="w-4 h-4" />
+            <span>Price Filter</span>
+            <span className="text-sm">₹{priceRange.min.toLocaleString()} - ₹{priceRange.max.toLocaleString()}</span>
+          </button>
+          
+          {showPriceFilter && (
+            <div className="mt-4 bg-white/95 backdrop-blur-lg rounded-2xl p-6 border border-green-200">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-green-700 mb-2">Min Price (₹)</label>
+                  <input
+                    type="number"
+                    value={priceRange.min}
+                    onChange={(e) => setPriceRange({ ...priceRange, min: parseInt(e.target.value) || 0 })}
+                    className="w-full p-3 border border-green-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-green-700 mb-2">Max Price (₹)</label>
+                  <input
+                    type="number"
+                    value={priceRange.max}
+                    onChange={(e) => setPriceRange({ ...priceRange, max: parseInt(e.target.value) || 100000 })}
+                    className="w-full p-3 border border-green-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    min="0"
+                  />
+                </div>
+              </div>
+              <div className="mt-4 flex space-x-2">
+                <button
+                  onClick={() => setPriceRange({ min: 0, max: 100000 })}
+                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-all duration-200"
+                >
+                  Clear Filter
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
         {/* Available Products */}
         <div className="mb-12">
           <div className="flex items-center mb-6">
@@ -577,18 +656,21 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
               <Package className="w-4 h-4 text-white" />
             </div>
             <h2 className="text-2xl font-bold text-green-800">Available Products</h2>
+            <span className="ml-4 px-3 py-1 bg-green-100 text-green-800 text-sm font-semibold rounded-full">
+              {priceFilteredProducts.length} items
+            </span>
           </div>
-          {filteredProducts.length === 0 ? (
+          {priceFilteredProducts.length === 0 ? (
             <div className="text-center py-12">
               <div className="w-20 h-20 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Package className="w-10 h-10 text-green-400" />
               </div>
-              <p className="text-green-700 text-lg font-medium">No products available in this category</p>
+              <p className="text-green-700 text-lg font-medium">No products found</p>
               <p className="text-green-600 text-sm mt-2">Check back later for new eco-friendly items!</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProducts.map((product) => (
+              {priceFilteredProducts.map((product) => (
                 <ProductCard key={product.id} product={product} onOrder={handleOrder} />
               ))}
             </div>
@@ -640,6 +722,16 @@ const ProductCard: React.FC<{ product: Product; onOrder: (product: Product) => v
         
         <h3 className="text-xl font-bold text-green-800 mb-2">{product.name}</h3>
         <p className="text-green-600 text-sm mb-4 line-clamp-2">{product.description}</p>
+        
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center text-lg font-bold text-green-800">
+            <IndianRupee className="w-5 h-5 mr-1" />
+            <span>{product.price.toLocaleString()}</span>
+          </div>
+          <span className="text-sm text-green-600 font-medium">
+            {product.quantity} available
+          </span>
+        </div>
         
         <div className="flex items-center text-sm text-green-500 mb-4">
           <User className="w-4 h-4 mr-1" />
@@ -710,6 +802,16 @@ const SoldOutProductCard: React.FC<{ product: Product }> = ({ product }) => {
         
         <h3 className="text-xl font-bold text-gray-600 mb-2">{product.name}</h3>
         <p className="text-gray-500 text-sm mb-4 line-clamp-2">{product.description}</p>
+        
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center text-lg font-bold text-gray-600">
+            <IndianRupee className="w-5 h-5 mr-1" />
+            <span>{product.price.toLocaleString()}</span>
+          </div>
+          <span className="text-sm text-red-600 font-medium">
+            0 available
+          </span>
+        </div>
         
         <div className="flex items-center text-sm text-gray-400 mb-4">
           <User className="w-4 h-4 mr-1" />

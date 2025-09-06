@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CATEGORY_WEIGHTS } from '../types';
+import { CATEGORY_WEIGHTS, CATEGORY_PRICE_RANGES } from '../types';
 import { calculateEcoImpact } from '../utils/calculations';
 import { ArrowLeft, Upload, Package, CheckCircle } from 'lucide-react';
 
@@ -12,6 +12,7 @@ const SellItem: React.FC<SellItemProps> = ({ onBack }) => {
     name: '',
     category: 'Laptop' as keyof typeof CATEGORY_WEIGHTS,
     description: '',
+    price: CATEGORY_PRICE_RANGES.Laptop.min,
     weight: CATEGORY_WEIGHTS.Laptop,
     quantity: 1,
   });
@@ -32,6 +33,7 @@ const SellItem: React.FC<SellItemProps> = ({ onBack }) => {
     setFormData({
       ...formData,
       category,
+      price: CATEGORY_PRICE_RANGES[category].min,
       weight: CATEGORY_WEIGHTS[category],
     });
   };
@@ -51,6 +53,7 @@ const SellItem: React.FC<SellItemProps> = ({ onBack }) => {
       name: formData.name,
       category: formData.category,
       description: formData.description,
+      price: formData.price,
       image: imagePreview,
       weight: formData.weight,
       quantity: formData.quantity,
@@ -195,6 +198,24 @@ const SellItem: React.FC<SellItemProps> = ({ onBack }) => {
                   required
                 />
               </div>
+            </div>
+
+            {/* Price */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Price (₹)</label>
+              <input
+                type="number"
+                required
+                value={formData.price}
+                onChange={(e) => setFormData({ ...formData, price: parseInt(e.target.value) || 0 })}
+                className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                min={CATEGORY_PRICE_RANGES[formData.category].min}
+                max={CATEGORY_PRICE_RANGES[formData.category].max}
+                placeholder={`₹${CATEGORY_PRICE_RANGES[formData.category].min} - ₹${CATEGORY_PRICE_RANGES[formData.category].max}`}
+              />
+              <p className="text-sm text-gray-500 mt-1">
+                Suggested range: ₹{CATEGORY_PRICE_RANGES[formData.category].min.toLocaleString()} - ₹{CATEGORY_PRICE_RANGES[formData.category].max.toLocaleString()}
+              </p>
             </div>
 
             {/* Weight */}

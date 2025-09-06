@@ -11,6 +11,7 @@ export interface Product {
   category: 'Laptop' | 'Mobile' | 'Accessories' | 'Home Appliance' | 'Clothes' | 'Furniture' | 'Books' | 'Kitchen & Lifestyle' | 'Transport & Outdoor';
   description: string;
   image: string;
+  price: number; // in rupees
   weight: number; // in grams
   quantity: number;
   ecoImpact: {
@@ -41,4 +42,16 @@ export const CATEGORY_WEIGHTS = {
   'Books': 400, // 400g average
   'Kitchen & Lifestyle': 250, // 250g average
   'Transport & Outdoor': 12000, // 12kg average
+};
+
+export const CATEGORY_PRICE_RANGES = {
+  'Laptop': { min: 10000, max: 60000 },
+  'Mobile': { min: 5000, max: 40000 },
+  'Accessories': { min: 200, max: 5000 },
+  'Home Appliance': { min: 3000, max: 30000 },
+  'Clothes': { min: 100, max: 2000 },
+  'Furniture': { min: 500, max: 15000 },
+  'Books': { min: 50, max: 1000 },
+  'Kitchen & Lifestyle': { min: 100, max: 5000 },
+  'Transport & Outdoor': { min: 1000, max: 20000 },
 };
