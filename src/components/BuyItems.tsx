@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Product } from '../types';
 import { formatWeight, formatCO2 } from '../utils/calculations';
-import { ArrowLeft, User, Leaf, Zap, CheckCircle } from 'lucide-react';
+import { ArrowLeft, User, Leaf, Zap, CheckCircle, Sparkles } from 'lucide-react';
 
 interface BuyItemsProps {
   onBack: () => void;
@@ -11,6 +11,11 @@ interface BuyItemsProps {
 const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
   const { incrementOrderCount } = useAuth();
   const [orderSuccess, setOrderSuccess] = useState<string | null>(null);
+  const [co2Celebration, setCo2Celebration] = useState<{ show: boolean; co2Saved: number; productName: string }>({
+    show: false,
+    co2Saved: 0,
+    productName: '',
+  });
 
   // Mock products data
   const products: Product[] = [
@@ -63,12 +68,57 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
 
   const handleOrder = async (product: Product) => {
     incrementOrderCount();
+    
+    // Show CO2 celebration popup
+    setCo2Celebration({
+      show: true,
+      co2Saved: product.ecoImpact.co2Saved,
+      productName: product.name,
+    });
+    
+    // Hide celebration after 3 seconds
+    setTimeout(() => {
+      setCo2Celebration({ show: false, co2Saved: 0, productName: '' });
+    }, 3000);
+    
     setOrderSuccess(product.name);
     setTimeout(() => setOrderSuccess(null), 3000);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-white p-4">
+      {/* CO2 Celebration Popup */}
+      {co2Celebration.show && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-3xl p-8 max-w-md w-full text-center transform animate-bounce shadow-2xl border border-gray-200">
+            <div className="flex justify-center mb-6">
+              <div className="relative">
+                <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center animate-pulse">
+                  <Leaf className="w-10 h-10 text-white" />
+                </div>
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center animate-spin">
+                  <Sparkles className="w-4 h-4 text-white" />
+                </div>
+              </div>
+            </div>
+            
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">
+              {formatCO2(co2Celebration.co2Saved)} saved!
+            </h2>
+            <p className="text-lg text-green-600 font-semibold mb-4">Hurray! 🎉</p>
+            <p className="text-gray-600 text-sm">
+              By choosing {co2Celebration.productName}, you're helping reduce electronic waste and carbon emissions!
+            </p>
+            
+            <div className="mt-6 flex justify-center space-x-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce"></div>
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+            </div>
+          </div>
+        </div>
+      )}
+      
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center mb-8">
           <button
