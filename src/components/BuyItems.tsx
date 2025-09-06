@@ -11,11 +11,11 @@ interface BuyItemsProps {
 const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
   const { incrementOrderCount } = useAuth();
   const [orderSuccess, setOrderSuccess] = useState<string | null>(null);
-  const [co2Celebration, setCo2Celebration] = useState<{ show: boolean; co2Saved: number; productName: string }>({
+  const [co2Celebration, setCo2Celebration] = useState<{ show: boolean; co2Saved: number; productName: string; message: string }>({
     show: false,
     co2Saved: 0,
     productName: '',
-  });
+    message: '',
 
   // Mock products data
   const products: Product[] = [
@@ -74,11 +74,12 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
       show: true,
       co2Saved: product.ecoImpact.co2Saved,
       productName: product.name,
+      message: getRandomCelebrationMessage(),
     });
     
     // Hide celebration after 3 seconds
     setTimeout(() => {
-      setCo2Celebration({ show: false, co2Saved: 0, productName: '' });
+      setCo2Celebration({ show: false, co2Saved: 0, productName: '', message: '' });
     }, 7000);
     
     setOrderSuccess(product.name);
@@ -111,7 +112,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
       {/* CO2 Celebration Popup */}
       {co2Celebration.show && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-3xl p-8 max-w-md w-full text-center transform shadow-2xl border border-gray-200 animate-[bounce_0.5s_ease-in-out_3]">
+          <div className="bg-white rounded-3xl p-8 max-w-md w-full text-center transform shadow-2xl border border-gray-200 animate-[bounce_0.6s_ease-in-out_1,_fadeIn_0.3s_ease-in-out_0.6s_both]">
             <div className="flex justify-center mb-6">
               <div className="relative">
                 <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center animate-pulse">
@@ -126,7 +127,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
             <h2 className="text-2xl font-bold text-gray-800 mb-2">
               {formatCO2(co2Celebration.co2Saved)} saved!
             </h2>
-            <p className="text-lg text-green-600 font-semibold mb-4">{getRandomCelebrationMessage()} 🎉</p>
+            <p className="text-lg text-green-600 font-semibold mb-4">{co2Celebration.message} 🎉</p>
             <div className="bg-green-50 rounded-2xl p-4 mb-4 border border-green-200">
               <p className="text-sm text-green-700 font-medium mb-1">That's equivalent to:</p>
               <p className="text-green-800 font-semibold">
