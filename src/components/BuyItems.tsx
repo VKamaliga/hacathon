@@ -11,10 +11,11 @@ interface BuyItemsProps {
 const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
   const { incrementOrderCount } = useAuth();
   const [orderSuccess, setOrderSuccess] = useState<string | null>(null);
-  const [co2Celebration, setCo2Celebration] = useState<{ show: boolean; co2Saved: number; productName: string }>({
+  const [co2Celebration, setCo2Celebration] = useState<{ show: boolean; co2Saved: number; productName: string; message: string }>({
     show: false,
     co2Saved: 0,
     productName: '',
+    message: '',
   });
 
   // Mock products data
@@ -74,11 +75,12 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
       show: true,
       co2Saved: product.ecoImpact.co2Saved,
       productName: product.name,
+      message: getRandomCelebrationMessage(),
     });
     
     // Hide celebration after 3 seconds
     setTimeout(() => {
-      setCo2Celebration({ show: false, co2Saved: 0, productName: '' });
+      setCo2Celebration({ show: false, co2Saved: 0, productName: '', message: '' });
     }, 7000);
     
     setOrderSuccess(product.name);
@@ -126,7 +128,7 @@ const BuyItems: React.FC<BuyItemsProps> = ({ onBack }) => {
             <h2 className="text-2xl font-bold text-gray-800 mb-2">
               {formatCO2(co2Celebration.co2Saved)} saved!
             </h2>
-            <p className="text-lg text-green-600 font-semibold mb-4">{getRandomCelebrationMessage()} 🎉</p>
+            <p className="text-lg text-green-600 font-semibold mb-4">{co2Celebration.message} 🎉</p>
             <div className="bg-green-50 rounded-2xl p-4 mb-4 border border-green-200">
               <p className="text-sm text-green-700 font-medium mb-1">That's equivalent to:</p>
               <p className="text-green-800 font-semibold">
