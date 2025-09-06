@@ -37,7 +37,7 @@ const Login: React.FC = () => {
           </div>
           
           <h1 className="text-3xl font-bold text-green-800 mb-2">EcoFinds</h1>
-          <p className="text-green-700 mb-8">Sustainable Electronics Marketplace</p>
+          <p className="text-green-700 mb-8">Sustainable Second-Hand Marketplace</p>
           
           {authError && (
             <div className="mb-6 p-4 bg-red-50 border border-red-300 rounded-xl">
